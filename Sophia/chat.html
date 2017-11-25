@@ -6,18 +6,23 @@
 
 <body>
 
+<h1>Web Instant Messenging 😝</h1>
+
 <ul id="output">
 
 </ul>
 
 <form>
-  <textarea id="input">
+  <textarea class = 'center' id="name" rows="1" placeholder="Enter your name"></textarea>
 
-  </textarea>
-  <input class="sendbutton" type="button" onclick="sendMessage()" value="Send!"/>
-  <div onclick="insertEmoji('😝')">😝</div>
-  <div onclick="insertEmoji('😊')">😊</div>
-  <div onclick="insertEmoji('😅')">😅</div>
+  <textarea class='center' id="input" rows="3" placeholder="Enter your message and emojis!"></textarea>
+  <div class='center' onclick="insertEmoji('😝')">😝</div>
+  <div class='center' onclick="insertEmoji('😞')">😞</div>
+  <div class='center' onclick="insertEmoji('😂')">😂</div>
+  <div class='center' onclick="insertEmoji('😊')">😊</div>
+  <div class='center' onclick="insertEmoji('😍')">😍</div>
+  <div class='center' onclick="insertEmoji('😅')">😅</div>
+  <input class="sendbutton" type="button" onclick="sendMessage()" value="Send message!"/>
 </form>
 
 <script>
@@ -36,10 +41,15 @@ pubnub.addListener({
     status: function(statusEvent) {
 
     },
-    message: function(message) {
+    message: function(event) {
       var ul = document.getElementById("output");
       var li = document.createElement("li");
-      li.appendChild(document.createTextNode(message.message));
+
+      var span = document.createElement("span");
+      span.appendChild(document.createTextNode(event.message.name));
+      li.appendChild(span)
+      li.appendChild(document.createTextNode(":" + event.message.text));
+
       ul.appendChild(li);
     },
     presence: function(presenceEvent) {
@@ -55,7 +65,10 @@ function sendMessage() {
 
     var publishConfig = {
         channel: "chat.default",
-        message: document.getElementById("input").value
+        message: {
+          name: document.getElementById("name").value,
+          text: document.getElementById("input").value
+        }
     };
 
     document.getElementById("input").value = '';
