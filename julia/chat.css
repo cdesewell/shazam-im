@@ -1,0 +1,46 @@
+
+.salmon_colour {
+  background-color: DADFE1;
+}
+
+h1 {
+  font-family: "cambria";
+}
+
+.textarea_border {
+  border-radius: 15px 15px 15px 15px;
+  width: 200px;
+}
+.emoji_container div {
+  display: inline;
+}
+#output_box {
+  background-color: ECF0F1;
+}
+
+#name {
+  width: 100px;
+}
+.small_input{
+  width: 60px;
+  height: 20px;
+}
+
+body {
+  background-image: src="interior.jpg";
+}
+
+#output li span {
+  color: E08283;
+  font-weight: bold ;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#box_h4 {
+  width: 100px;
+  height: 200px;
+}

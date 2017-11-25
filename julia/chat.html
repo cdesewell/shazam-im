@@ -1,0 +1,103 @@
+<html>
+<head>
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.18.0.js"></script>
+  <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<body background="interior.jpg">
+<div class="container">
+
+    <div class="well well-lg text-center title"> MESSAGING APP
+    </div>
+          <div class="well well-lg" id="output_box">
+              <h4 id="box_h4"> Your messages </h4>
+                <div class="well">
+                  <ul id="output" class="list-unstyled ">
+                    </ul>
+                </div>
+
+          </div>
+
+
+            <form class="text-center">
+              <div class="well"> Name
+
+              <textarea id="name" class="small_input textarea_border"></textarea>
+            </div>
+            <div class="well">
+                <textarea id="input" class="textarea_border" placeholder="Type something"></textarea>
+
+                    <div class="emoji_container text-center">
+                        <div onclick="insertEmoji('😆')">😆</div>
+                        <div onclick="insertEmoji('😋')">😋 </div>
+                        <div onclick="insertEmoji('😍')">😍 </div>
+                        <div onclick="insertEmoji('😌')">😌 </div>
+                        <div onclick="insertEmoji('😊')">😊 </div>
+                        <div onclick="insertEmoji('😏')">😏 </div>
+                        <div onclick="insertEmoji('😆')">😆 </div>
+                        <div onclick="insertEmoji('😁')">😁 </div>
+                        <div onclick="insertEmoji('😉')">😉 </div>
+                        <div onclick="insertEmoji('😝')">😝 </div>
+                    </div>
+              </div>
+                      <input type="button" class="btn btn-primary" onclick="sendMessage()" value="Send!"/>
+            </form>
+            </div>
+
+</div>
+<script>
+
+var insertEmoji = function(emoji) {
+  document.getElementById("input").value += emoji
+}
+
+var pubnub = new PubNub({
+    publishKey: 'pub-c-fa968ba2-1d85-4d93-a751-1595df2fe9f5',
+    subscribeKey: 'sub-c-12d59a02-d1ca-11e7-b689-fe280ced9411'
+});
+
+pubnub.addListener({
+    status: function(statusEvent) {
+
+    },
+    message: function(event) {
+      var ul = document.getElementById("output");
+      var li = document.createElement("li");
+
+      var span = document.createElement("span")
+      span.appendChild(document.createTextNode(event.message.name));
+      li.appendChild(span)
+      li.appendChild(document.createTextNode( ":" + event.message.text));
+
+      ul.appendChild(li);
+    },
+    presence: function(presenceEvent) {
+
+    }
+});
+
+pubnub.subscribe({
+    channels: ['chat.default']
+});
+
+function sendMessage() {
+
+    var publishConfig = {
+        channel: "chat.default",
+        message: {
+          text: document.getElementById("input").value,
+          name: document.getElementById("name").value
+        }
+    };
+
+    document.getElementById("input").value = '';
+    pubnub.publish(publishConfig, function(status, response) {
+      console.log(status, response);
+    });
+}
+
+</script>
+</body>
+</html>
