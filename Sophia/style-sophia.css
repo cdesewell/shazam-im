@@ -1,0 +1,31 @@
+
+body {
+    background-color: powderblue;
+}
+
+h1 {
+    color: purple;
+    font-family: arial;
+    font-size: 200%;
+    margin: 20px;
+}
+
+p {
+    color: grey;
+    font-family: verdana;
+    font-size: 110%;
+    border: 2px solid grey;
+    padding: 20px;
+    margin: 50px;
+}
+
+#li01 {
+	color: white;
+}
+
+li {
+	color : blue;
+	font-family: verdana;
+    font-size: 110%;
+    margin: 20px;
+}
