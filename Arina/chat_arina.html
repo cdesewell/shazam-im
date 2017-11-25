@@ -1,0 +1,87 @@
+<html>
+<head>
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.18.0.js"></script>
+  <link rel="stylesheet" href="style_arina2.css">
+</head>
+
+<body>
+<h1>Shazam's WebApp</h1>
+<ul id="output">
+
+</ul>
+
+
+
+<form>
+
+  <input class="sendbutton" type="button" onclick="sendMessage()" value="Send!"/>
+
+  <textarea id="name"placeholder="Name here!"></textarea>
+  <textarea id="input"placeholder="Type message here...".></textarea>
+
+<div class="emoji_container">
+  <div onclick="insertEmoji('😁')">😁</div>
+  <div onclick="insertEmoji('😍')">😍</div>
+  <div onclick="insertEmoji('😋')">😋</div>
+  <div onclick="insertEmoji('😺')">😺</div>
+</div>
+
+</form>
+
+
+<script>
+
+var insertEmoji = function(emoji)
+{
+   document.getElementById("input").value += emoji;
+}
+
+
+var pubnub = new PubNub({
+    publishKey: 'pub-c-fa968ba2-1d85-4d93-a751-1595df2fe9f5',
+    subscribeKey: 'sub-c-12d59a02-d1ca-11e7-b689-fe280ced9411'
+});
+
+pubnub.addListener({
+    status: function(statusEvent) {
+
+    },
+    message: function(message) {
+      var ul = document.getElementById("output");
+      var li = document.createElement("li");
+
+      var span = document.createElement("span");
+      span.appendChild(document.createTextNode(message.message.name));
+      li.appendChild(span)
+      li.appendChild(document.createTextNode(" - " + message.message.text));
+
+      ul.appendChild(li);
+    },
+    presence: function(presenceEvent) {
+
+    }
+});
+
+pubnub.subscribe({
+    channels: ['chat.default']
+});
+
+function sendMessage() {
+
+    var publishConfig = {
+        channel: "chat.default",
+        message: {
+          text: document.getElementById("input").value,
+          name: document.getElementById("name").value
+        }
+    };
+
+    document.getElementById("input").value = '';
+    pubnub.publish(publishConfig, function(status, response) {
+      console.log(status, response);
+    });
+}
+
+</script>
+</body>
+</html>
