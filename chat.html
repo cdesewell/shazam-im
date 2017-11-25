@@ -9,18 +9,22 @@
 
 </ul>
 
+<div class="emojiContainer">
+  <div onclick="insertEmoji('😁')">😁</div>
+</div>
 <form>
-  <textarea id="input">
-
-  </textarea>
+  <textarea id="name" placeholder="Describe yourself here..."></textarea>
+  <textarea id="input"></textarea>
   <input type="button" onclick="sendMessage()" value="Send!"/>
 </form>
 
-<style>
-
-</style>
-
 <script>
+
+var insertEmoji = function(emoji)
+{
+    document.getElementById("input").value += emoji;
+}
+
 var pubnub = new PubNub({
     publishKey: 'pub-c-fa968ba2-1d85-4d93-a751-1595df2fe9f5',
     subscribeKey: 'sub-c-12d59a02-d1ca-11e7-b689-fe280ced9411'
@@ -30,10 +34,15 @@ pubnub.addListener({
     status: function(statusEvent) {
 
     },
-    message: function(message) {
+    message: function(event) {
       var ul = document.getElementById("output");
       var li = document.createElement("li");
-      li.appendChild(document.createTextNode(message.message));
+
+      var span = document.createElement("span");
+      span.appendChild(document.createTextNode(event.message.name));
+      li.appendChild(span)
+      li.appendChild(document.createTextNode(": " + event.message.text));
+      
       ul.appendChild(li);
     },
     presence: function(presenceEvent) {
@@ -49,7 +58,10 @@ function sendMessage() {
 
     var publishConfig = {
         channel: "chat.default",
-        message: document.getElementById("input").value
+        message: {
+          text: document.getElementById("input").value,
+          name: document.getElementById("name").value
+        }
     };
 
     document.getElementById("input").value = '';
@@ -57,7 +69,7 @@ function sendMessage() {
       console.log(status, response);
     });
 }
-
 </script>
+
 </body>
 </html>
