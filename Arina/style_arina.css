@@ -1,0 +1,26 @@
+body {
+   background-color: #f7eb91;
+}
+h1 {
+   color: #8e1f04;
+   font-family: optima;
+   font-size: 200%;
+   text-align: center;
+}
+
+
+p {
+   color: #d83006;
+   font-family: optima;
+   font-size: 350%;
+   text-align: center;
+}
+li {
+   color: #630d2d;
+   font-family: optima;
+   font-size: 150%;
+   border: 2px solid #630d2d;
+   padding: 5px;
+   margin: 50px;
+   text-align: center;
+}
