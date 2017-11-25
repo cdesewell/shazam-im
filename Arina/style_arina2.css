@@ -1,0 +1,50 @@
+body {
+   background-color: #f7eb91;
+   background-image: url("DC1.jpg");
+}
+
+li {
+   color: #a192f4;
+   font-family: garamond;
+   font-size: 250%;
+   text-align: center;
+   border-left: 5px solid #d1f5ff;
+   margin: 1px;
+   padding: 6;
+
+
+}
+
+.sendbutton {
+   background-color: #f7eb91;
+}
+
+form {
+   color: #8e1f04;
+   font-family: optima;
+   font-size: 100%;
+   text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    font-family: lucida bright
+    margin: 2;
+    padding: 5;
+}
+
+input {
+   color: #cc0e34;
+   font-family: optima;
+   font-size: 250%;
+   text-align: center;
+}
+textarea {
+   color: #241372;
+   font-family: optima;
+   font-size: 250%;
+   border: 5px solid #ffe20c;
+   padding: 5px;
+   margin: 50px;
+   text-align: center;
+}
