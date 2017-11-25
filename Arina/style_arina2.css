@@ -5,18 +5,28 @@ body {
 
 li {
    color: #a192f4;
-   font-family: garamond;
+   font-family: monospace;
    font-size: 250%;
    text-align: center;
    border-left: 5px solid #d1f5ff;
-   margin: 1px;
+   margin: 7px;
    padding: 6;
+   background-color: #424242;
 
 
 }
 
 .sendbutton {
-   background-color: #f7eb91;
+   background-color: #e5f9ff;
+   align: center;
+}
+
+h1 {
+  color: #c4fff2;
+  font-family: rockwell;
+  font-size: 310%;
+  text-align: center;
+  border: 8px dotted #f8ffbc;
 }
 
 form {
@@ -24,6 +34,14 @@ form {
    font-family: optima;
    font-size: 100%;
    text-align: center;
+}
+
+.emoji_container div {
+  display: inline;
+  font-size: 150%;
+  border: 8px dotted #f8ffbc;
+  background-color: #c4fff2;
+  width: 8px;
 }
 
 ul {
@@ -36,15 +54,21 @@ ul {
 input {
    color: #cc0e34;
    font-family: optima;
-   font-size: 250%;
+   font-size: 150%;
    text-align: center;
 }
 textarea {
-   color: #241372;
+   color: #cc0e34;
    font-family: optima;
-   font-size: 250%;
-   border: 5px solid #ffe20c;
+   font-size: 150%;
+   border: 5px solid #e5f9ff;
+   border-style: inset;
    padding: 5px;
    margin: 50px;
    text-align: center;
+}
+
+#output li span {
+  color: #ffd6d6;
+  font-family: fantasy;
 }

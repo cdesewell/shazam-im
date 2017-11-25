@@ -5,22 +5,29 @@
 </head>
 
 <body>
-
+<h1>Shazam's WebApp</h1>
 <ul id="output">
 
 </ul>
 
-<div onclick="insertEmoji('😁')">😁</div>
-<div onclick="insertEmoji('😍')">😍</div>
-<div onclick="insertEmoji('😋')">😋</div>
-<div onclick="insertEmoji('😺')">😺</div>
+
 
 <form>
-  <textarea id="input">
 
-  </textarea>
   <input class="sendbutton" type="button" onclick="sendMessage()" value="Send!"/>
+
+  <textarea id="name"placeholder="Name here!"></textarea>
+  <textarea id="input"placeholder="Type message here...".></textarea>
+
+<div class="emoji_container">
+  <div onclick="insertEmoji('😁')">😁</div>
+  <div onclick="insertEmoji('😍')">😍</div>
+  <div onclick="insertEmoji('😋')">😋</div>
+  <div onclick="insertEmoji('😺')">😺</div>
+</div>
+
 </form>
+
 
 <script>
 
@@ -42,7 +49,12 @@ pubnub.addListener({
     message: function(message) {
       var ul = document.getElementById("output");
       var li = document.createElement("li");
-      li.appendChild(document.createTextNode(message.message));
+
+      var span = document.createElement("span");
+      span.appendChild(document.createTextNode(message.message.name));
+      li.appendChild(span)
+      li.appendChild(document.createTextNode(" - " + message.message.text));
+
       ul.appendChild(li);
     },
     presence: function(presenceEvent) {
@@ -58,7 +70,10 @@ function sendMessage() {
 
     var publishConfig = {
         channel: "chat.default",
-        message: document.getElementById("input").value
+        message: {
+          text: document.getElementById("input").value,
+          name: document.getElementById("name").value
+        }
     };
 
     document.getElementById("input").value = '';
